@@ -9,9 +9,15 @@ QuantumRegister::QuantumRegister() {
 
 QuantumRegister::QuantumRegister(unsigned int n) {
 	this->numQubits = n;
+	int i;
 	this->states.push_back(0);
 	this->amplitudes.push_back(1.0);
 	this->amplitudes.push_back(0.0);
+	for(i=1; i<pow(2,n); i++){
+		this->states.push_back(i);
+		this->amplitudes.push_back(0.0);
+		this->amplitudes.push_back(0.0);
+	}
 }
 
 //Constructor by copy
