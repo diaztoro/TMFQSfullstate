@@ -7,9 +7,9 @@ INCS  = -I /usr/local/zfp/include
 
 LIBS = -L /usr/local/zfp/lib64 -lzfp -lstdc++
 
-all: applyHadamard applyControlledPhaseShift testQregQgate
+all: applyHadamard applyControlledPhaseShift testQregQgate qft
 
-SIMULATOR_SRCS = quantumRegister.cpp quantumGate.cpp utils.cpp 
+SIMULATOR_SRCS = quantumRegister.cpp quantumGate.cpp quantumAlgorithms.cpp utils.cpp 
 SIMULATOR_OBJS=$(subst .cpp,.o,$(SIMULATOR_SRCS))
 
 
@@ -24,6 +24,9 @@ applyControlledPhaseShift: $(SIMULATOR_OBJS) applyControlledPhaseShift.o
 testQregQgate: $(SIMULATOR_OBJS) testQregQgate.o
 	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) testQregQgate.o -o testQregQgate
 
+qft: $(SIMULATOR_OBJS) qft.o
+	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) qft.o -o qft
+
 
 
 #COMPILE SOURCE MAIN PROGRAMS
@@ -36,6 +39,9 @@ applyControlledPhaseShift.o: applyControlledPhaseShift.cpp
 testQregQgate.o: testQregQgate.cpp
 	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) testQregQgate.cpp
 
+qft.o: qft.cpp
+	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) qft.cpp
+
 
 
 #COMPILE SIMULATOR SOURCE FILES
@@ -44,6 +50,9 @@ quantumRegister.o : quantumRegister.cpp
 
 quantumGate.o : quantumGate.cpp
 	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) quantumGate.cpp
+
+quantumAlgorithms.o : quantumAlgorithms.cpp
+	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) quantumAlgorithms.cpp
 
 utils.o : utils.cpp
 	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) utils.cpp
