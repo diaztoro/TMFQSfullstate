@@ -30,15 +30,17 @@ int main(int argc, char *argv[]){
 		h2 = h1.Hadamard();
 		h2.printQuantumGate();
 		*/
+		/*
 		cps2 = cps1.ControlledPhaseShift(90);
 		cps2.printQuantumGate();
+		*/
 
-		//QuantumRegister qreg1;
-		//qreg1.setSize(numberOfQubits);
+		QuantumRegister qreg1;
+		qreg1.setSize(numberOfQubits);
 		//QuantumRegister qreg1(numberOfQubits);
-		//qreg1.fillStatesVector();
-		//cout << qreg1.getSize() << endl;
-		//qreg1.printStatesVector();
+		qreg1.fillStatesVector();
+		cout << qreg1.getSize() << endl;
+		qreg1.printStatesVector();
 		//amp1 = qreg1.amplitude(index);
 		//cout << amp1.real << amp1.imag << endl;
 

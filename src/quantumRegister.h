@@ -1,5 +1,5 @@
-#ifndef QUANTUM_INCLUDE
-#define QUANTUM_INCLUDE
+#ifndef QUANTUM_REGISTER_INCLUDE
+#define QUANTUM_REGISTER_INCLUDE
 
 #include <iostream>
 #include <cstdio>
@@ -14,13 +14,13 @@ using namespace std;
 class QuantumRegister {
 
 	public:
-		unsigned int numQubits;
+		unsigned int numQubits, numStates;
 		AmplitudesVector amplitudes;
 		StatesVector states;
 
 		//Constructors ###################################
 		QuantumRegister();
-		QuantumRegister(unsigned int n);
+		QuantumRegister(unsigned int numQubits);
 		QuantumRegister(const QuantumRegister&);
 
 		int getSize();
@@ -65,6 +65,8 @@ class QuantumRegister {
 		void applyGate(QuantumGate g, IntegerVector v);
 		void Hadamard(unsigned int qubit);
 		void ControlledPhaseShift(unsigned int controlQubit, unsigned int targetQubit, double theta);
+		void ControlledNot(unsigned int controlQubit, unsigned int targetQubit);
+		void Swap(unsigned int qubit1, unsigned int qubit2);
 };
 
-#endif
+#endif //QUANTUM_REGISTER_INCLUDE

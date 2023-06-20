@@ -24,12 +24,14 @@ int main(int argc, char *argv[]){
 		qubit = atoi(argv[2]);
 
 		QuantumRegister qreg(numberOfQubits);
+		/*
 		for(int i=0; i<numberOfQubits; i++){
 			qreg.Hadamard(i);
 		}
 		qreg.printStatesVector();
-		//qreg.Hadamard(qubit);
-		//qreg.printStatesVector();
+		*/
+		qreg.Hadamard(qubit);
+		qreg.printStatesVector();
 
 
 		return 0;

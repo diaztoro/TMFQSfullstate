@@ -123,3 +123,14 @@ QuantumGate QuantumGate::ControlledPhaseShift(double theta){
 	g[3][3].imag = ampResult.imag;
 	return g;
 }
+
+
+QuantumGate QuantumGate::ControlledNot() {
+	QuantumGate g(4); 
+	g[0][0].real = 1.0;
+	g[1][1].real = 1.0;
+	g[2][3].real = 1.0;
+	g[3][2].real = 1.0;
+	return g;
+}
+
