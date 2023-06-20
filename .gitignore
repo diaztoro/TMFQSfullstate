@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+src/qft
+
+# Sourcetrial files
+TMFQS.srctrlbm
+TMFQS.srctrldb
+TMFQS.srctrlprj
+
+# GPTchat examples
+applyGate.cpp
+applyGateHadamard.cpp
+applyGateHadamard2.cpp
+parallelQFT.cpp
