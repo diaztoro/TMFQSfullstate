@@ -8,12 +8,14 @@ void quatumFourierTransform(QuantumRegister *qureg) {
 
    for(i = 0; i < qureg->numQubits; i++){
       qureg->Hadamard(i);
-      for (unsigned int j = 1; j < qureg->numQubits - i; j++) {
+      for (j = 1; j < qureg->numQubits - i; j++) {
          qureg->ControlledPhaseShift(i + j, i, pi/double(1 << j)); // 1 << j is pow(2, j)
       }
    }
-	for (unsigned int i = 0; i < floor((qureg->numQubits) / 2.0); i++)
+	for (i = 0; i < floor((qureg->numQubits) / 2.0); i++){
+		//std::cout << i << " " << qureg->numQubits-i-1 << std::endl;
 		qureg->Swap(i, qureg->numQubits-i-1);
+	}
 }
 
 
