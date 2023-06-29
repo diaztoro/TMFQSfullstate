@@ -155,7 +155,7 @@ StatesVector getAllStates(unsigned int qubits){
 	StatesVector v;
 	int i;
 
-	for(i=0; i <= qubits; i++){
+	for(i=0; i < (1 << qubits); i++){
 		v.push_back(i);
 	}
 	return v;
@@ -192,10 +192,11 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 		return; 
 	}
 
-	unsigned int state, newState, i, pos;
+	unsigned int state, newState, pos, tempBit;
 	unsigned int stateIndex, newStateIndex;
 	string s;
-	unsigned int r, j, saux; 
+	unsigned int r, saux;
+	int i, j, l;
 	StatesVector oldStates, tempStates;
 	AmplitudesVector oldAmplitudes;
 	Amplitude c, auxAmp1, auxAmp2, auxAmp3;
@@ -207,10 +208,10 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 	tempStates = getAllStates(qubits.size());
 
 
-
-	//std::cout  << "####### Applying  Gate on qubit: " << qubits[0] << " qubits size = " << qubits.size() << std::endl;
+	// For all state do
 	for( state = 0; state < this->numStates; state++ ){
 
+		//std::cout << "State = " << state << std::endl;
 		s = "";
 
 		// Get a string containing the n-th bit of the state according the qubits vector
@@ -219,6 +220,7 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 		}
 		// Find which number basis element s corresponds to.
 		r = binaryToDecimal(s);
+		//std::cout << " s =  " <<  s << " r = " << r << " #############" << std::endl;
 
 		//states[state] -= (1.0 - u[r][r]) * old[state];
 		auxAmp1.real = 1.0 - gate[r][r].real;
@@ -228,25 +230,32 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 		auxAmp3.real = 0.0;
 		auxAmp3.imag = 0.0;
 		auxAmp3 = amplitudeMult(auxAmp1, auxAmp2);
-		//std::cout << auxAmp3.real << " " << auxAmp3.imag << std::endl;
 		this->amplitudes[state*2] = this->amplitudes[state*2] - auxAmp3.real;
 		this->amplitudes[state*2+1] = this->amplitudes[state*2+1] - auxAmp3.imag;
+		//std::cout << "Amplitud[" << state << "] = " << this->amplitudes[state*2] << " " << this->amplitudes[state*2+1] << std::endl;
 		j = 0;
 		for(int k : tempStates){
 			if (j != r) {
 				newState = state;
 				// COPY ALL BITS FROM k TO newState AT POSITION pos WHICH CORRESPOND TO THE QUBIT WHERE TO APPLY THE GATE
 				// qubits.size() IS THE NUMBER OF BITS OF k (BITS TO COPY)
-				pos = this->numQubits - qubits.size() - qubits[0];
-				newState = copyBits(newState, k, pos, qubits.size());
+				// For all bits of k
+				// l Iterates backward over the bits of k (the most significative bits is on the right)
+				// And i iterates forward over qubits vector
+				for(l = qubits.size() - 1, i = 0; l >= 0, i < qubits.size(); l--, i++){ 
+					// std::cout << "l = " << l << std::endl;
+					// get the i-th bit
+					tempBit = (k >> l)&1; 
+					// std::cout << "k[" << l << "] = " << tempBit << std::endl;
+					// std::cout << "qbits[" << i << "] = " << qubits[i] << std::endl;
+					pos = this->numQubits - qubits[i] - 1;
+					newState = copyBits(newState, tempBit, pos, 1);
+				}
 				//c = u[j][r] * old[state];
 				c.real = gate[j][r].real * oldAmplitudes[state*2];
 				c.imag = gate[j][r].imag * oldAmplitudes[state*2+1];
-				//newState = findState(saux);
-				//if(newState >= 0 && newState <= pow(2, this->numQubits) -1){
-					this->amplitudes[newState*2] += c.real;
-					this->amplitudes[newState*2+1] += c.imag;
-				//}
+				this->amplitudes[newState*2] += c.real;
+				this->amplitudes[newState*2+1] += c.imag;
 			}
 			j++;
 		}
