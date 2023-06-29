@@ -56,7 +56,12 @@ unsigned int binaryToDecimal(std::string str) {
    return result;
 }
 
-// Copy bits from source to destination
+// Copy "numbits" bits from "source" to "destination" to the position "at"
+// Example: destination = 8 (1000)
+// 			source = 3 (11)
+// 			at = 0
+// 			numbits = 2
+// 			result = 11 (1011)
 unsigned int copyBits(int destination, int source, int at, int numbits){
    // int mask = ((1LL<<numbits)-1)<<at; // 1st aproach
    int mask = ((~0u)>>(sizeof(int)*8-numbits))<<at; // 2nd aproach
