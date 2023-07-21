@@ -7,7 +7,7 @@ INCS  = -I /usr/local/zfp/include
 
 LIBS = -L /usr/local/zfp/lib64 -lzfp -lstdc++
 
-all: applyHadamard applyControlledPhaseShift applyControlledNot testQregQgate qft
+all: applyHadamard applyControlledPhaseShift applyControlledNot testQregQgate qft grover getSumOfProbabilities 
 
 SIMULATOR_SRCS = quantumRegister.cpp quantumGate.cpp quantumAlgorithms.cpp utils.cpp 
 SIMULATOR_OBJS=$(subst .cpp,.o,$(SIMULATOR_SRCS))
@@ -30,6 +30,12 @@ testQregQgate: $(SIMULATOR_OBJS) testQregQgate.o
 qft: $(SIMULATOR_OBJS) qft.o
 	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) qft.o -o qft
 
+grover: $(SIMULATOR_OBJS) grover.o
+	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) grover.o -o grover
+
+getSumOfProbabilities: $(SIMULATOR_OBJS) getSumOfProbabilities.o
+	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) getSumOfProbabilities.o -o getSumOfProbabilities
+
 
 
 #COMPILE SOURCE MAIN PROGRAMS
@@ -47,6 +53,12 @@ testQregQgate.o: testQregQgate.cpp
 
 qft.o: qft.cpp
 	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) qft.cpp
+
+grover.o: grover.cpp
+	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) grover.cpp
+
+getSumOfProbabilities.o: getSumOfProbabilities.cpp
+	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) getSumOfProbabilities.cpp
 
 
 

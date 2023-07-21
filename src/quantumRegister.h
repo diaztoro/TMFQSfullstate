@@ -35,7 +35,7 @@ class QuantumRegister {
 		double probability(unsigned int state);
 
 		//Get the sum of magnitudes of the statesVector
-		double magnitudSumatory();
+		double probabilitySumatory();
 
 
 		//Get the amplitude of specific state
@@ -56,6 +56,7 @@ class QuantumRegister {
 		friend std::ostream &operator << (std::ostream &os, QuantumRegister &reg);
 		string getNthBit(unsigned int state, unsigned int qubit);
 		int findState(unsigned int state);
+		double getProbability(unsigned int state);
 
 		//Destructor #####################################
 		~QuantumRegister();

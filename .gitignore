@@ -31,15 +31,32 @@
 *.out
 *.app
 src/qft
+src/grover
 src/applyControlledNot
+src/getSumOfProbabilities
+src/applyControlledPhaseShift
+src/applyHadamard
+src/testQregQgate
 
 # Sourcetrial files
 TMFQS.srctrlbm
 TMFQS.srctrldb
 TMFQS.srctrlprj
 
-# GPTchat examples
+# ChatGPT examples
 applyGate.cpp
 applyGateHadamard.cpp
 applyGateHadamard2.cpp
 parallelQFT.cpp
+
+
+# test simulator examples
+src/applyHadamard.cpp
+src/applyControlledNot.cpp
+src/applyControlledPhaseShift.cpp
+src/applyHadamard.cpp
+src/getSumOfProbabilities.cpp
+src/testArray2.cpp
+src/testMemConsumption.cpp
+src/testQregQgate.cpp
+src/testSim.cpp
