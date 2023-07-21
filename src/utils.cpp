@@ -2,10 +2,10 @@
 #include "utils.h"
 
 // the seed for the random number engine is obtained using this
-std::random_device ramdomDev;  
+std::random_device ramdomDevice;  
 
 // Mersenne_twister_engine using randomDev as seed
-std::mt19937 randomNumberEngine(ramdomDev()); 
+std::mt19937 randomNumberEngine(ramdomDevice()); 
 
 // Uniform real distribuition
 std::uniform_real_distribution<> uniformRealDistribution(0.0, 1.0);
@@ -77,4 +77,9 @@ Amplitude eRaisedToComplex(Amplitude amp){
 	result.real = pow(e, amp.real) * cos(amp.imag);
 	result.imag = pow(e, amp.real) * sin(amp.imag);
 	return result;
+}
+
+
+double absoluteValue(Amplitude amp){
+	return sqrt(pow(amp.real, 2) + pow(amp.imag, 2));
 }

@@ -36,10 +36,11 @@ unsigned int Grover(unsigned int omega, unsigned int numBits, bool verbose) {
 
 	unsigned int N = 1 << numBits; // 1 << numBits is pow(2, numBits)
 	if (omega >= N){
-		printf("%d is not enough bits for omega = %d\n", numBits, omega); return 0;
+		std::cout << "Number of bits = " << numBits << " is not enough for omega = " << omega << std::endl;
+		return 0;
 	}
 
-	// Make Uomega, our black box operator.
+	// Uomega is the black box operator.
 	QuantumGate Uomega = QuantumGate::Identity(N);
 	Uomega[omega][omega].real = -1.0;
 	Uomega[omega][omega].imag = 0.0;
