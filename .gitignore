@@ -57,6 +57,7 @@ src/applyControlledPhaseShift.cpp
 src/applyHadamard.cpp
 src/getSumOfProbabilities.cpp
 src/testArray2.cpp
+src/array2d.h
 src/testMemConsumption.cpp
 src/testQregQgate.cpp
 src/testSim.cpp
