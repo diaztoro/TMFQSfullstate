@@ -1,6 +1,4 @@
-#include "quantumRegister.h"
-#include "quantumGate.h"
-#include "quantumAlgorithms.h"
+#include "tmfqsfs.h"
 #include <stdlib.h>
 #include <mpi.h>
 #include <zfp.h>
@@ -12,17 +10,19 @@ using namespace std;
 //TMFQS
 int main(int argc, char *argv[]){
 
-	if(argc != 2){
-		cout << "./applyHadamard <Number of Qubits>" << endl;
+	if(argc != 3){
+		cout << "./grover <Number of Qubits> <marked state>" << endl;
 		return 1;
 	}
    else{
 		int i, j;
-		unsigned int numberOfQubits;
+		unsigned int numberOfQubits, omega;
 		numberOfQubits = atoi(argv[1]);
+		omega = atoi(argv[2]);
 
 		QuantumRegister qureg(numberOfQubits);
 		quatumFourierTransform(&qureg);
-		qureg.printStatesVector();
+		Grover(omega, numberOfQubits, true);
+		//qureg.printStatesVector();
 	}
 }

@@ -1,86 +1,43 @@
-CC  =   icpx
-CFLAGS  = -std=c++17 -I /usr/local/zfp/include -L /usr/local/zfp/lib64 -lzfp
-OTHERFLAGS = -c
-DEBUG_FLAGS = -g
-CXXFLAGS  = -c
-INCS  = -I /usr/local/zfp/include
+CXX = icpx
 
-LIBS = -L /usr/local/zfp/lib64 -lzfp -lstdc++
+# Specify the source files, the target files, 
+# and the install directory 
+SOURCES  = quantumRegister.cpp quantumGate.cpp quantumAlgorithms.cpp utils.cpp 
+TARGET_LIB = libtmfqsfs.so
+INSTALLDIR  = ../lib64
+#INCS  = -I /usr/local/zfp/include
+#LIBS = -L /usr/local/zfp/lib64 -lzfp -lstdc++
+INCS  = -I ./ -I ../include
+LIBS =  
+CXXFLAGS += -fPIC -std=c++17 -Wall -Wextra $(INCS) $(LIBS)
 
-all: applyHadamard applyControlledPhaseShift applyControlledNot testQregQgate qft grover getSumOfProbabilities 
-
-SIMULATOR_SRCS = quantumRegister.cpp quantumGate.cpp quantumAlgorithms.cpp utils.cpp 
-SIMULATOR_OBJS=$(subst .cpp,.o,$(SIMULATOR_SRCS))
-
-
-
-#LINK MAIN PROGRAMS
-applyHadamard: $(SIMULATOR_OBJS) applyHadamard.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) applyHadamard.o -o applyHadamard
-
-applyControlledPhaseShift: $(SIMULATOR_OBJS) applyControlledPhaseShift.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) applyControlledPhaseShift.o -o applyControlledPhaseShift
-
-applyControlledNot: $(SIMULATOR_OBJS) applyControlledNot.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) applyControlledNot.o -o applyControlledNot
-
-testQregQgate: $(SIMULATOR_OBJS) testQregQgate.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) testQregQgate.o -o testQregQgate
-
-qft: $(SIMULATOR_OBJS) qft.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) qft.o -o qft
-
-grover: $(SIMULATOR_OBJS) grover.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) grover.o -o grover
-
-getSumOfProbabilities: $(SIMULATOR_OBJS) getSumOfProbabilities.o
-	$(CC) $(LIBS) $(CFLAGS) $(DEBUG_FLAGS) $(SIMULATOR_OBJS) getSumOfProbabilities.o -o getSumOfProbabilities
+# Specify extensions of files to delete when cleaning
+CLEANEXTS   = o so
 
 
+.PHONY: all
+all: $(TARGET_LIB)
 
-#COMPILE SOURCE MAIN PROGRAMS
-applyHadamard.o: applyHadamard.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyHadamard.cpp
+# Build lib*.so from all the *.o;
+# subst is the search-and-replace 
+# function demonstrated in Recipe 1.16
+$(TARGET_LIB): $(subst .cpp,.o,$(SOURCES)) 
+	$(CXX) -shared -fPIC $(LDFLAGS) -o $@ $^
 
-applyControlledPhaseShift.o: applyControlledPhaseShift.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledPhaseShift.cpp
+%.o: %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
-applyControlledNot.o: applyControlledNot.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledNot.cpp
+.PHONY: install
+install:
+	mkdir -p $(INSTALLDIR)
+	cp -p $(TARGET_LIB) $(INSTALLDIR)
 
-testQregQgate.o: testQregQgate.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) testQregQgate.cpp
+.PHONY: clean 
+clean:
+	for file in $(CLEANEXTS); do rm -f *.$$file; done
 
-qft.o: qft.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) qft.cpp
+# Generate dependencies of .ccp files on .hpp files
+include $(subst .cpp,.d,$(SOURCES))
 
-grover.o: grover.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) grover.cpp
-
-getSumOfProbabilities.o: getSumOfProbabilities.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) getSumOfProbabilities.cpp
-
-
-
-#COMPILE SIMULATOR SOURCE FILES
-quantumRegister.o : quantumRegister.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) quantumRegister.cpp
-
-quantumGate.o : quantumGate.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) quantumGate.cpp
-
-quantumAlgorithms.o : quantumAlgorithms.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) quantumAlgorithms.cpp
-
-utils.o : utils.cpp
-	$(CC) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) utils.cpp
-
-
-
-
-#CLEAN BINARIES
-clean: 
-	rm -f *.o test
-
-
-
+%.d: %.cpp
+	$(CXX) -M $(CPPFLAGS) $(INCS) $< > $@.$$$$; sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; rm -f $@.$$$$
