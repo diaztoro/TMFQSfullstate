@@ -17,7 +17,6 @@ double getRandomNumber() {
 // Complex number multiplication
 Amplitude amplitudeMult(Amplitude a, Amplitude b){
 	Amplitude result;
-	//std::cout << "a = " << a.real << " " << a.imag << " b = " << b.real << " " << b.imag << std::endl;
 	result.real = a.real * b.real - a.imag * b.imag;
 	result.imag = a.real * b.imag + a.imag * b.real;
 	return result;

@@ -47,7 +47,7 @@ QuantumGate operator*(Amplitude x, QuantumGate &U) {
 // Operator * for two Quantum gates multiplication 
 QuantumGate QuantumGate::operator*(QuantumGate &qg){
 	QuantumGate result(dimension);
-	unsigned int i, j, k;
+	unsigned int i, j;
    if (qg.dimension != dimension) {
       printf("Matrices cannot be multiplied; different dimensions\n");
       return result;
