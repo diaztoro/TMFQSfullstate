@@ -23,13 +23,10 @@ class QuantumRegister {
 		QuantumRegister(unsigned int numQubits);
 		QuantumRegister(const QuantumRegister&);
 
-		int getSize();
 
 		//Accessors ######################################
 		//
-
-		//Get the element i-th
-		Amplitude getElement(unsigned int);
+		int getSize();
 
 		//Get the Magnitud or Modulus of the element i-th
 		double probability(unsigned int state);

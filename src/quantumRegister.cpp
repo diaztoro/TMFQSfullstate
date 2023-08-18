@@ -28,29 +28,20 @@ int QuantumRegister::getSize(){
 //Get methods ####################################
 //
 //Get the element i-th of linearized amplitudes vector
-Amplitude QuantumRegister::getElement(unsigned int element){
-	Amplitude amp;
-	amp.real = this->amplitudes[element*2];
-	amp.imag = this->amplitudes[element*2 + 1];
-	return amp;
-}
-
-
 Amplitude QuantumRegister::amplitude(unsigned int state){
 	Amplitude amp;
-	int index;
-	StatesVector::iterator i = find(this->states.begin(), this->states.end(), state);
-	if (i != this->states.end()) {
-		index = i - this->states.begin();
-		amp.real = this->amplitudes[index];
-		amp.imag = this->amplitudes[index + 1];
+	if (state <= this->numStates){
+		amp.real = this->amplitudes[state*2];
+		amp.imag = this->amplitudes[state*2 + 1];
 	}
-	else {
-		amp.real = -1.0;
-		amp.imag = -1.0;
-   }
+	else{
+		amp.real = 0.0;
+		amp.imag = 0.0;
+	}
 	return amp;
 }
+
+
 
 
 //Get the Magnitud or Modulus of the element i-th
