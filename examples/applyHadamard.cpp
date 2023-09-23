@@ -1,8 +1,5 @@
 #include "tmfqsfs.h"
 #include <stdlib.h>
-#include <mpi.h>
-#include <zfp.h>
-#include <zfp/array2.hpp>
 #include <iostream>
 
 
@@ -12,21 +9,29 @@ using namespace std;
 int main(int argc, char *argv[]){
 
 	if(argc != 3){
+		//cout << "./applyHadamard <Number of Qubits> <qubit> <init state>" << endl;
 		cout << "./applyHadamard <Number of Qubits> <qubit>" << endl;
 		return 1;
 	}
    else{
 		int i, j;
-		unsigned int numberOfQubits, qubit;
-		numberOfQubits = atoi(argv[1]);
+		unsigned int numQubits = 0, qubit, initState = 0;
+		numQubits = atoi(argv[1]);
 		qubit = atoi(argv[2]);
+		initState = atoi(argv[3]);
 
-		QuantumRegister qreg(numberOfQubits);
-		for(int i=0; i<numberOfQubits; i++){
+		//QuantumRegister qreg(numQubits, initState);
+		QuantumRegister qreg(numQubits, true);
+		qreg.printStatesVector();
+		std::cout << std::endl;
+		qreg.Hadamard(qubit);
+		/*
+		for(int i=0; i<numQubits; i++){
 			qreg.Hadamard(i);
 		}
+		*/
 		qreg.printStatesVector();
-		//qreg.Hadamard(qubit);
+		//qreg.ControlledPhaseShift(controlQubit, targetQubit, theta);
 		//qreg.printStatesVector();
 
 

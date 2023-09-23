@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "types.h"
 #include "quantumGate.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -21,6 +22,10 @@ class QuantumRegister {
 		//Constructors ###################################
 		QuantumRegister();
 		QuantumRegister(unsigned int numQubits);
+		QuantumRegister(unsigned int numQubits, unsigned int initState);
+		QuantumRegister(unsigned int numQubits, bool specific);
+		//QuantumRegister(unsigned int numQubits, bool isRandom);
+		QuantumRegister(unsigned int numQubits, string filePath);
 		QuantumRegister(const QuantumRegister&);
 
 

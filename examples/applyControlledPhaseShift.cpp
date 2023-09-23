@@ -1,41 +1,36 @@
 #include "tmfqsfs.h"
 #include <stdlib.h>
-#include <mpi.h>
-#include <zfp.h>
-#include <zfp/array2.hpp>
 #include <iostream>
 
 
 using namespace std;
 
+//TMFQS
 int main(int argc, char *argv[]){
 
 	if(argc != 5){
-		cout << "./applyHadamard <Number of Qubits> <controlQubit> <targetQubit> <theta>" << endl;
+		cout << "./applyControlledPhaseShift <Number of Qubits> <controlQubit> <targetQubit> <initState>" << endl;
 		return 1;
 	}
    else{
 		int i, j;
-		unsigned int numberOfQubits, controlQubit, targetQubit;
-		double theta;
-		numberOfQubits = atoi(argv[1]);
+		unsigned int numQubits = 0, controlQubit, targetQubit, initState;
+		numQubits = atoi(argv[1]);
 		controlQubit = atoi(argv[2]);
-		targetQubit = atoi(argv[3]);
-		theta = atof(argv[4]);
+      targetQubit = atoi(argv[3]);
+		initState = atoi(argv[4]);
 
 		/*
-		QuantumGate g1(4), g2(4);
-		g2 = g1.ControlledPhaseShift(theta);
-		g2.printQuantumGate();
-		*/
-
-		QuantumRegister qreg(numberOfQubits);
-		for(int i=0; i<numberOfQubits; i++)
-			qreg.Hadamard(i);
-		//qreg.printStatesVector();
-		cout << "Applying Controlled Phase Shift" << endl << endl;
-		qreg.ControlledPhaseShift(controlQubit, targetQubit, theta);
 		qreg.printStatesVector();
+		for(int i=0; i<numQubits; i++){
+			qreg.Hadamard(i);
+		}
+		*/
+		QuantumRegister qreg(numQubits, initState);
+		qreg.ControlledPhaseShift(controlQubit, targetQubit, pi/double(1 << 2));
+		qreg.printStatesVector();
+		//qreg.Hadamard(qubit);
+		//qreg.printStatesVector();
 
 
 		return 0;

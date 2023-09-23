@@ -4,19 +4,26 @@
 #include "quantumAlgorithms.h"
 
 void quatumFourierTransform(QuantumRegister *qureg) {
-	unsigned int i, j;
-
-   for(i = 0; i < qureg->numQubits; i++){
-      qureg->Hadamard(i);
-      for (j = 1; j < qureg->numQubits - i; j++) {
-         qureg->ControlledPhaseShift(i + j, i, pi/double(1 << j)); // 1 << j is pow(2, j)
+   for(unsigned int j = 0; j < qureg->numQubits; j++){
+		//std::cout << "Applying H" << std::endl;
+      qureg->Hadamard(j);
+		//qureg->printStatesVector();
+		for (unsigned int k = 1; k < qureg->numQubits - j; k++) {
+			//std::cout << "Applying CPS" << std::endl;
+         qureg->ControlledPhaseShift(j + k, j, M_PI/static_cast<double>(1 << k)); // 1 << j is pow(2, j)
+			//qureg->printStatesVector();
+			//cout << "Press Enter to Continue";
+			//cin.ignore();
+			//std::cout << std::endl;
       }
    }
-	for (i = 0; i < floor((qureg->numQubits) / 2.0); i++){
+	// REVERSE THE REGISTER ORDER
+	for (unsigned int i = 0; i < floor((qureg->numQubits)/2.0); i++){
 		//std::cout << i << " " << qureg->numQubits-i-1 << std::endl;
 		qureg->Swap(i, qureg->numQubits-i-1);
 	}
 }
+
 
 
 unsigned int Grover(unsigned int omega, unsigned int numBits, bool verbose) {
