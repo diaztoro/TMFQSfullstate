@@ -32,9 +32,9 @@
 *.app
 
 # Sourcetrial files
-TMFQS.srctrlbm
-TMFQS.srctrldb
-TMFQS.srctrlprj
+TMFQSfullState.srctrlbm
+TMFQSfullState.srctrldb
+TMFQSfullState.srctrlprj
 
 # ChatGPT examples
 chatgpt
