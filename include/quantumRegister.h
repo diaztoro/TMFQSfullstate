@@ -23,7 +23,7 @@ class QuantumRegister {
 		QuantumRegister();
 		QuantumRegister(unsigned int numQubits);
 		QuantumRegister(unsigned int numQubits, unsigned int initState);
-		QuantumRegister(unsigned int numQubits, bool specific);
+		QuantumRegister(unsigned int numQubits, unsigned int initState, Amplitude amp);
 		//QuantumRegister(unsigned int numQubits, bool isRandom);
 		QuantumRegister(unsigned int numQubits, string filePath);
 		QuantumRegister(const QuantumRegister&);

@@ -38,22 +38,22 @@ applyHadamard.o: applyHadamard.cpp
 	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyHadamard.cpp
 
 applyControlledPhaseShift.o: applyControlledPhaseShift.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledPhaseShift.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledPhaseShift.cpp
 
 applyControlledNot.o: applyControlledNot.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledNot.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) applyControlledNot.cpp
 
 testQregQgate.o: testQregQgate.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) testQregQgate.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) testQregQgate.cpp
 
 qft.o: qft.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) qft.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) qft.cpp
 
 grover.o: grover.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) grover.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) grover.cpp
 
 getSumOfProbabilities.o: getSumOfProbabilities.cpp
-	$(CXX) $(LIBS) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) getSumOfProbabilities.cpp
+	$(CXX) $(INCS) $(CXXFLAGS) $(DEBUG_FLAG) getSumOfProbabilities.cpp
 
 
 #CLEAN BINARIES

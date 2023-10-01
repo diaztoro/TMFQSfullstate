@@ -30,14 +30,12 @@ QuantumRegister::QuantumRegister(unsigned int numQubits, unsigned int initState)
 
 
 // Parametrized Constructor 3
-QuantumRegister::QuantumRegister(unsigned int numQubits, bool specific = true) {
+QuantumRegister::QuantumRegister(unsigned int numQubits, unsigned int initState, Amplitude amp) {
 	this->numQubits = numQubits;
 	this->numStates = pow(2,this->numQubits);
 	this->amplitudes.resize(this->numStates*2, 0.0);
-	//this->amplitudes[2*1] = 0.707107;
-	//this->amplitudes[2*1 + 1] = 0.0;
-	this->amplitudes[2*9] = 0.653281;
-	this->amplitudes[2*9 + 1] = 0.270598;
+	this->amplitudes[2*initState] = amp.real;
+	this->amplitudes[2*initState + 1] = amp.imag;
 }
 
 
@@ -285,7 +283,6 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 			this->amplitudes[state*2+1] = this->amplitudes[state*2+1] - auxAmp3.imag;
 			j = 0;
 			for(int k : tempStates){
-				//std::cout << "j = " << j << " k = " << k << std::endl;
 				if (j != r) {
 					newState = state;
 					// COPY ALL BITS FROM k TO newState AT POSITION pos WHICH CORRESPOND TO THE QUBIT WHERE TO APPLY THE GATE
@@ -300,7 +297,6 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 						newState = copyBits(newState, tempBit, pos, 1);
 					}
 					//c = u[j][r] * old[state];
-					//std::cout << "state: " << state << " new state:  " << newState << std::endl;
 					auxAmp1.real = gate[j][r].real;
 					auxAmp1.imag = gate[j][r].imag;
 					auxAmp2.real = oldAmplitudes[state*2];

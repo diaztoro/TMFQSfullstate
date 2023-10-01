@@ -9,7 +9,7 @@ using namespace std;
 //TMFQS
 int main(int argc, char *argv[]) {
 
-	if((argc != 3) && (argc != 5) && (argc != 7) && (argc != 9)) {
+	if(argc != 3)  {
 		cout << "./qft <Number of Qubits> <initialState>" << endl;
 		return 1;
 	} else {

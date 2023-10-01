@@ -15,13 +15,15 @@ int main(int argc, char *argv[]){
 	}
    else{
 		int i, j;
-		unsigned int numQubits = 0, qubit, initState = 0;
+		unsigned int numQubits = 0, qubit, initState = 9;
 		numQubits = atoi(argv[1]);
 		qubit = atoi(argv[2]);
-		initState = atoi(argv[3]);
+		//initState = atoi(argv[3]);
+		Amplitude amp;
 
-		//QuantumRegister qreg(numQubits, initState);
-		QuantumRegister qreg(numQubits, true);
+		amp.real = 0.653281;
+		amp.imag = 0.270598;
+		QuantumRegister qreg(numQubits, initState, amp);
 		qreg.printStatesVector();
 		std::cout << std::endl;
 		qreg.Hadamard(qubit);
