@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 		//cout << endl << "Initial amplitudes" << endl;
 		//qureg.printStatesVector();
 		quatumFourierTransform(&qureg);
-		qureg.printStatesVector();
+		//qureg.printStatesVector();
 
 		return 0;
 	}
