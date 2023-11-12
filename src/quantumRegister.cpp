@@ -175,11 +175,11 @@ std::ostream &operator << (std::ostream &os, QuantumRegister &reg) {
 	for(unsigned int i=0; i<reg.numStates; i++){
 		if(reg.amplitudes[i*2] != 0.0 || reg.amplitudes[(i*2)+1] !=0.0) {
 			cout << i << ": " << reg.amplitudes[i*2] << " + " << reg.amplitudes[i*2 + 1] << "i" << endl;
-			/*
+		/*
 			cout << std::right << std::setw(2) << i << ": ";
 			cout << std::right << std::setw(7) << std::setprecision(3) << reg.amplitudes[i*2]; 
 			cout << std::right << std::setw(7) << std::setprecision(3) << reg.amplitudes[(i*2)+1] << endl;
-			*/
+		*/
 		}
 	}
 	return os;
@@ -304,6 +304,7 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 					auxAmp3 = amplitudeMult(auxAmp1, auxAmp2);
 					this->amplitudes[newState*2] += auxAmp3.real;
 					this->amplitudes[newState*2+1] += auxAmp3.imag;
+					std::cout << "state: " << state << " newState: " << newState << std::endl;
 				}
 				j++;
 			}
