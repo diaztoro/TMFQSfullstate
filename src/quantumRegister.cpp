@@ -304,7 +304,7 @@ void QuantumRegister::applyGate(QuantumGate gate, IntegerVector qubits){
 					auxAmp3 = amplitudeMult(auxAmp1, auxAmp2);
 					this->amplitudes[newState*2] += auxAmp3.real;
 					this->amplitudes[newState*2+1] += auxAmp3.imag;
-					std::cout << "state: " << state << " newState: " << newState << std::endl;
+					//std::cout << "state: " << state << " newState: " << newState << std::endl;
 				}
 				j++;
 			}
