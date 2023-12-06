@@ -1,26 +1,30 @@
 #include "tmfqsfs.h"
 #include <stdlib.h>
-#include <mpi.h>
-#include <zfp.h>
 #include <iostream>
+#include "utils.h"
 
 
 using namespace std;
 
 //TMFQS
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
-	if(argc != 2){
-		cout << "./applyHadamard <Number of Qubits>" << endl;
+	if(argc != 3)  {
+		cout << "./qft <Number of Qubits> <initialState>" << endl;
 		return 1;
-	}
-   else{
+	} else {
 		int i, j;
-		unsigned int numberOfQubits;
-		numberOfQubits = atoi(argv[1]);
 
-		QuantumRegister qureg(numberOfQubits);
+		unsigned int numberOfQubits = 0, initState = 0;
+		numberOfQubits = atoi(argv[1]);
+		initState = atoi(argv[2]);
+		QuantumRegister qureg(numberOfQubits, initState);
+
+		//cout << endl << "Initial amplitudes" << endl;
+		//qureg.printStatesVector();
 		quatumFourierTransform(&qureg);
-		qureg.printStatesVector();
+		//qureg.printStatesVector();
+
+		return 0;
 	}
 }
